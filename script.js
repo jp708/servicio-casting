@@ -142,10 +142,10 @@ document.getElementById("leadForm")?.addEventListener("submit", (e) => {
 })();
 
 /* Header → WhatsApp */
-document.getElementById("headerWhatsApp")?.addEventListener("click", (e) => {
+document.querySelectorAll("#headerWhatsApp, .nav-advisor").forEach((el) => el.addEventListener("click", (e) => {
   e.preventDefault();
   window.open(WA + encodeURIComponent(copy[state.lang].wa), "_blank", "noopener,noreferrer");
-});
+}));
 
 /* Catálogo: categoría + filtros */
 const grid = document.getElementById("talentGrid");
@@ -330,4 +330,16 @@ applyLanguage();
   document.getElementById("privacyClose")?.addEventListener("click", close);
   document.getElementById("privacyOk")?.addEventListener("click", close);
   dlg.addEventListener("click", (e) => { if (e.target === dlg) close(); });
+})();
+
+
+/* Menú hamburguesa (móvil / tablet) */
+(function () {
+  const bar = document.querySelector(".topbar"), btn = document.getElementById("navToggle");
+  if (!bar || !btn) return;
+  const set = (open) => { bar.classList.toggle("is-open", open); btn.setAttribute("aria-expanded", String(open)); };
+  btn.addEventListener("click", () => set(!bar.classList.contains("is-open")));
+  bar.addEventListener("click", (e) => { if (e.target.closest(".nav a, .header-cta, .audience-item")) set(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") set(false); });
+  window.matchMedia("(min-width:1281px)").addEventListener("change", (e) => { if (e.matches) set(false); });
 })();
