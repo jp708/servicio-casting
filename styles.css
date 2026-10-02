@@ -1477,3 +1477,41 @@ html,body{max-width:100%;overflow-x:clip}
 /* 4. "Tres caminos": 3 tarjetas → no deja una celda vacía en tablet */
 .paths{grid-template-columns:repeat(3,1fr)}
 @media (max-width:900px){.paths{grid-template-columns:1fr}}
+
+/* =====================================================================
+   Encabezado responsive (≤1280px): fila 1 = logo + hamburguesa a la derecha;
+   fila 2 = selector, idioma y tema siempre visibles; menú desplegable con los enlaces.
+   ===================================================================== */
+.nav-toggle,.nav-advisor{display:none}
+@media(max-width:1440px){.nav-minor{display:none}}
+@media(min-width:1281px){.controls .header-cta{display:inline-flex}}
+@media(max-width:1280px){
+  .topbar{height:auto!important;min-height:0;flex-wrap:wrap;align-items:center;gap:0 10px!important;padding:0 max(16px,calc((100vw - var(--max))/2))!important;max-height:100dvh;overflow-y:auto}
+  .brand{order:1;display:flex;align-items:center;height:var(--bar-h)}
+  .nav-toggle{order:2;margin-left:auto;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:46px;height:46px;padding:0;border:1px solid #3a3a3a;border-radius:6px;background:#111;color:#fff;cursor:pointer;transition:border-color .2s ease}
+  .nav-toggle:hover{border-color:var(--red)}
+  .nav-toggle span{display:block;width:22px;height:2px;background:currentColor;border-radius:2px;transition:transform .3s var(--ease),opacity .2s ease}
+  .topbar.is-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .topbar.is-open .nav-toggle span:nth-child(2){opacity:0}
+  .topbar.is-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  /* fila 2 */
+  .controls{order:3;flex:0 0 100%;width:100%;display:flex!important;flex-wrap:nowrap;align-items:center;gap:8px;padding:0 0 14px}
+  .controls .header-cta{display:none!important}
+  .audience-switch{order:1;flex:1 1 0;min-width:0;display:flex}
+  .audience-item,.audience-item.active{display:flex!important;flex:1;justify-content:center;text-align:center;padding:9px 6px;font-size:10px}
+  .controls .segmented{order:2;flex:none}
+  .color-toggle{order:3;flex:none;width:36px;height:36px;padding:0}
+  .color-toggle-text{display:none}
+  /* menú desplegable */
+  .nav{display:none!important;order:4;flex:0 0 100%;width:100%;margin:0}
+  .topbar.is-open .nav{display:flex!important;flex-direction:column;gap:0;padding:2px 0 16px;border-top:1px solid #222}
+  .topbar.is-open .nav a{display:block!important;padding:15px 2px;font-size:15px;color:#ddd;border-bottom:1px solid #1f1f1f}
+  .topbar.is-open .nav a:after{display:none}
+  body .topbar.is-open .nav a.nav-advisor{display:flex!important;justify-content:center;margin-top:16px;padding:15px 18px;background:var(--red);color:#fff;font-size:14px;font-weight:800;border:0;border-radius:3px}
+  body.theme-light .nav-toggle{background:#fff;color:#111;border-color:#ccc}
+  body.theme-light .topbar.is-open .nav{border-top-color:#e4e4e4}
+  body.theme-light .topbar.is-open .nav a{color:#333;border-bottom-color:#eee}
+  body.theme-light .topbar.is-open .nav a.nav-advisor{color:#fff}
+}
+@media(max-width:480px){.logo{width:150px}}
+@media(max-width:1280px){.audience-item,.audience-item.active{min-height:40px}}
